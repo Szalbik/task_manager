@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    TM - Task
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-7">
+            <h1>{{ task.name }}</h1>
+            <p>{{ task.description }}</p>
+            <a href="{{ path('task_index') }}">Back to tasks</a>
+        </div>
+        <div class="col-md-5">
+            <p><b>Priority:</b> {{ task.priority }}</p>
+            <p><b>Created at:</b> {{ task.createdAt }}</p>
+            <p><b>Updated at:</b> {{ task.updatedAt }}</p>
+            <p><b>Assigne to:</b> {{ task.user.email }}</p>
+        </div>
+    </div>
+{% endblock %}
