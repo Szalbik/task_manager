@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Entity\User;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Task
@@ -63,6 +64,14 @@ class Task
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;
+
+    /**
+     * @ORM\Column(type="string")
+     *
+     * @Assert\NotBlank(message="Please, upload the product image as a JPEG file.")
+     * @Assert\File(mimeTypes={"image/jpeg", "image/jpg", "image/png"})
+     */
+    private $image;
 
     /**
      * Get id
@@ -222,5 +231,17 @@ class Task
     public function getUser()
     {
         return $this->user;
+    }
+
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    public function setImage($image)
+    {
+        $this->image = $image;
+
+        return $this;
     }
 }

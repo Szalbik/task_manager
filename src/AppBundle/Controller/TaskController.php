@@ -5,7 +5,9 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Task;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Task controller.
@@ -60,6 +62,13 @@ class TaskController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $file = $task->getImage();
+            $fileName = md5(uniqid()).'.'.$file->guessExtension();
+            $file->move(
+                $this->getParameter('images_directory'),
+                $fileName
+            );
+            $task->setImage($fileName);
             $em = $this->getDoctrine()->getManager();
             $em->persist($task);
             $em->flush();
@@ -97,14 +106,30 @@ class TaskController extends Controller
      */
     public function editAction(Request $request, Task $task)
     {
+        if($task->getImage()) {
+            $task->setImage(
+                new File($this->getParameter('images_directory').'/'.$task->getImage())
+            );
+        }
+
+
         $deleteForm = $this->createDeleteForm($task);
         $editForm = $this->createForm('AppBundle\Form\TaskType', $task);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $file = $task->getImage();
+            $fileName = md5(uniqid()).'.'.$file->guessExtension();
+            $file->move(
+                $this->getParameter('images_directory'),
+                $fileName
+            );
+            $task->setImage($fileName);
+
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('task_edit', array('id' => $task->getId()));
+
+            return $this->redirectToRoute('task_show', array('id' => $task->getId()));
         }
 
         return $this->render('task/edit.html.twig', array(

@@ -2,25 +2,28 @@
 
 {% block body %}
     <h1>{{ task.name }}</h1>
+    {% if task.image %}
+        <img src="{{ asset('uploads/images/' ~ task.image) }}" alt="{{ asset(task.image) }}"/>
+    {% endif %}
 
     <table class="table table-hover">
         <tbody>
-            <tr>
-                <th>Priority</th>
-                <td>{{ task.priority }}</td>
-            </tr>
-            <tr>
-                <th>Createdat</th>
-                <td>{% if task.createdAt %}{{ task.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Updatedat</th>
-                <td>{% if task.updatedAt %}{{ task.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ task.description }}</td>
-            </tr>
+        <tr>
+            <th>Priority</th>
+            <td>{{ task.priority }}</td>
+        </tr>
+        <tr>
+            <th>Createdat</th>
+            <td>{% if task.createdAt %}{{ task.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+        </tr>
+        <tr>
+            <th>Updatedat</th>
+            <td>{% if task.updatedAt %}{{ task.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+        </tr>
+        <tr>
+            <th>Description</th>
+            <td>{{ task.description }}</td>
+        </tr>
         </tbody>
     </table>
 
@@ -33,7 +36,7 @@
         </li>
         <li style="margin: 10px 20px;">
             {{ form_start(delete_form) }}
-                <input class="btn btn-danger" type="submit" value="Delete">
+            <input class="btn btn-danger" type="submit" value="Delete">
             {{ form_end(delete_form) }}
         </li>
     </ul>
