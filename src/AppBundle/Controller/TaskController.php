@@ -112,7 +112,6 @@ class TaskController extends Controller
             );
         }
 
-
         $deleteForm = $this->createDeleteForm($task);
         $editForm = $this->createForm('AppBundle\Form\TaskType', $task);
         $editForm->handleRequest($request);
