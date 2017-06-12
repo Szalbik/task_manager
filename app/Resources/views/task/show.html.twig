@@ -40,4 +40,17 @@
             {{ form_end(delete_form) }}
         </li>
     </ul>
+
+    <h2>Comments:</h2>
+
+    <ul>
+        {% for comment in comments %}
+            <li>
+                <h3>Author: {{ comment.author }}</h3>
+                <blockquote>{{ comment.description }}</blockquote>
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{{ path('comment_new', { 'id': task.id }) }}">Create a new comment</a>
+
 {% endblock %}

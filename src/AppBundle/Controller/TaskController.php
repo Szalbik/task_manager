@@ -92,9 +92,12 @@ class TaskController extends Controller
     {
         $deleteForm = $this->createDeleteForm($task);
 
+        $em = $this->getDoctrine()->getManager();
+        $comments = $em->getRepository('AppBundle:Comment')->findBy(array('task' => $task));
         return $this->render('task/show.html.twig', array(
             'task' => $task,
             'delete_form' => $deleteForm->createView(),
+            'comments' => $comments,
         ));
     }
 

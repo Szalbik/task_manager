@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Entity\User;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -72,6 +73,17 @@ class Task
      * @Assert\File(mimeTypes={"image/jpeg", "image/jpg", "image/png"})
      */
     private $image;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="Task")
+     */
+    private $comments;
+
+
+    public function __construct()
+    {
+        $this->comments = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -243,5 +255,44 @@ class Task
         $this->image = $image;
 
         return $this;
+    }
+
+    /**
+     * Add comment
+     *
+     * @param \AppBundle\Entity\Comment $comment
+     *
+     * @return Task
+     */
+    public function addComment(\AppBundle\Entity\Comment $comment)
+    {
+        $this->comments[] = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Remove comment
+     *
+     * @param \AppBundle\Entity\Comment $comment
+     */
+    public function removeComment(\AppBundle\Entity\Comment $comment)
+    {
+        $this->comments->removeElement($comment);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    public function __toString()
+    {
+        return $this->getName();
     }
 }
