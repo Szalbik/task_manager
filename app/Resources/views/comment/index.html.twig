@@ -3,7 +3,7 @@
 {% block body %}
     <h1>Comments list</h1>
 
-    <table>
+    <table class="table table-hover">
         <thead>
             <tr>
                 <th>Id</th>
@@ -19,12 +19,12 @@
                 <td>{{ comment.author }}</td>
                 <td>{{ comment.description }}</td>
                 <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('comment_show', { 'id': comment.id }) }}">show</a>
+                    <ul style="display: flex; flex-direction: row;">
+                        <li style="list-style: none;">
+                            <a class="btn btn-info" href="{{ path('comment_show', { 'id': comment.id }) }}">show</a>
                         </li>
-                        <li>
-                            <a href="{{ path('comment_edit', { 'id': comment.id }) }}">edit</a>
+                        <li style="list-style: none;">
+                            <a class="btn btn-warning" href="{{ path('comment_edit', { 'id': comment.id }) }}">edit</a>
                         </li>
                     </ul>
                 </td>
@@ -33,9 +33,4 @@
         </tbody>
     </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('comment_new') }}">Create a new comment</a>
-        </li>
-    </ul>
 {% endblock %}

@@ -51,6 +51,6 @@
             </li>
         {% endfor %}
     </ul>
-    <a href="{{ path('comment_new', { 'id': task.id }) }}">Create a new comment</a>
+    <a class="btn btn-info" href="{{ path('comment_new', { 'id': task.id }) }}">Create a new comment</a>
 
 {% endblock %}

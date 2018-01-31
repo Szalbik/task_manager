@@ -6,29 +6,35 @@
     <table class="table table-hover">
         <thead>
         <tr>
-            <th>Id</th>
+            <th>Image</th>
             <th>Name</th>
             <th>Priority</th>
             <th>Createdat</th>
-            <th>Updatedat</th>
+            <h>Updatedat</h>
             <th>Actions</th>
         </tr>
         </thead>
         <tbody>
         {% for task in tasks %}
             <tr>
-                <td><a href="{{ path('task_show', { 'id': task.id }) }}">{{ task.id }}</a></td>
-                <td>{{ task.name }}</td>
+                <td>
+                    {% if task.image %}
+                        <a href="{{ path('task_show', { 'id': task.id }) }}">
+                            <img src="{{ asset('uploads/images/' ~ task.image) }}" alt="{{ asset(task.image) }}" />
+                        </a>
+                    {% endif %}
+                </td>
+                <td><a href="{{ path('task_show', { 'id': task.id }) }}">{{ task.name }}</a></td>
                 <td>{{ task.priority }}</td>
                 <td>{% if task.createdAt %}{{ task.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>{% if task.updatedAt %}{{ task.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('task_show', { 'id': task.id }) }}">show</a>
+                    <ul style="display: flex; flex-direction: row;">
+                        <li style="list-style: none;">
+                            <a class="btn btn-info" href="{{ path('task_show', { 'id': task.id }) }}">show</a>
                         </li>
-                        <li>
-                            <a href="{{ path('task_edit', { 'id': task.id }) }}">edit</a>
+                        <li style="list-style: none;">
+                            <a class="btn btn-warning" href="{{ path('task_edit', { 'id': task.id }) }}">edit</a>
                         </li>
                     </ul>
                 </td>
@@ -38,6 +44,6 @@
     </table>
 
 
-    <a class="btn btn-info" href="{{ path('task_new') }}">Create a new task</a>
+    <a class="btn btn-success" href="{{ path('task_new') }}">Create a new task</a>
 
 {% endblock %}

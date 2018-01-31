@@ -6,10 +6,10 @@
     {{ form_start(form) }}
         {{ form_widget(form) }}
         {{ form_row(form.image) }}
-        <input type="submit" value="Create" />
+        <input class="btn btn-success" type="submit" value="Create" />
     {{ form_end(form) }}
 
 
-            <a href="{{ path('task_index') }}">Back to the list</a>
+            <a class="btn btn-danger" href="{{ path('task_index') }}">Back to the list</a>
 
 {% endblock %}
